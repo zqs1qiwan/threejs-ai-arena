@@ -29,12 +29,12 @@
 
 | 目录 | 模型 | 作品 | 归档内容 |
 |------|------|------|----------|
-| [`products/hy4flash/`](products/hy4flash/) | Hy4 Flash | 禅 · ZEN SHIKI | 完整源码 `src/`、构建产物 `dist/`、Worker、部署配置、最终发布记录 |
+| [`products/hy4flash/`](products/hy4flash/) | Hy4 Flash | 禅 · ZEN SHIKI | 页面 HTML 与构建产物 |
 | [`products/deepseekv4.1flash/`](products/deepseekv4.1flash/) | DeepSeek V4.1 Flash | 四季 · SHIKI BONSAI | 最终构建产物（线上下载还原）与来源说明 |
 ---
 
 ## 说明
 
-- 每个作品独立目录，源码与构建产物分列，便于比较不同 AI 的实现路线与最终画面。
+- 每个作品独立目录，归档最终页面与构建产物，便于比较不同 AI 的最终画面。
 - 验证地址与测试逻辑集中管理，便于复现"线上截图 → 视觉评审"循环。
 - 本仓库仅归档最终成果与测试逻辑，不代表任何资产可脱离线上环境单独运行（构建产物需 Worker 路由配合）。
