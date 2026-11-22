@@ -1,0 +1,97 @@
+:root {
+  --ink:#f2f5ee; --muted:rgba(235,242,230,.58); --line:rgba(232,240,224,.16);
+  --glass:rgba(16,24,20,.32); --accent:#9fd07a;
+}
+* { box-sizing:border-box; }
+html,body { margin:0; height:100%; overflow:hidden; background:#0d1410; color:var(--ink);
+  font-family:"Inter","Segoe UI",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
+#app,#app canvas { position:fixed; inset:0; width:100%; height:100%; display:block; }
+#app canvas { touch-action:none; cursor:grab; }
+#app canvas:active { cursor:grabbing; }
+#ui { position:fixed; inset:0; pointer-events:none; z-index:10; display:flex; flex-direction:column;
+  justify-content:space-between; padding:clamp(18px,2.5vw,34px) clamp(18px,3vw,44px)
+    calc(clamp(18px,2.5vw,34px) + env(safe-area-inset-bottom)); transition:opacity .35s ease; }
+#ui.hidden { opacity:0; }
+#ui > * { pointer-events:none; }
+#ui button,#ui input,#ui .pip { pointer-events:auto; }
+.hud-top { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+.brand h1 { margin:0; font-family:"Songti SC","Noto Serif SC","STSong",Georgia,serif;
+  font-size:clamp(22px,2.5vw,34px); font-weight:600; letter-spacing:.14em; text-shadow:0 2px 12px rgba(0,0,0,.75),0 0 22px rgba(0,0,0,.45); }
+.brand h1 .sep { display:inline-block; width:1px; height:.85em; background:var(--line); margin:0 .6em; vertical-align:-.05em; }
+.brand h1 .en { font-family:"Inter","Segoe UI",sans-serif; font-size:.42em; letter-spacing:.34em; font-weight:400; color:var(--muted); }
+.brand p { margin:8px 0 0; font-size:clamp(10px,1.05vw,12px); letter-spacing:.16em; color:#eef4e8; text-shadow:0 1px 8px rgba(0,0,0,.85); }
+.status { text-align:right; }
+.season-name { font-family:"Songti SC","Noto Serif SC",Georgia,serif; font-size:clamp(18px,2vw,26px);
+  font-weight:600; letter-spacing:.12em; text-shadow:0 2px 16px rgba(0,0,0,.35); }
+.season-sub { margin-top:6px; font-size:11px; letter-spacing:.1em; color:#eef4e8; text-shadow:0 1px 8px rgba(0,0,0,.85); }
+.season-sub .dot { opacity:.5; margin:0 6px; }
+.hud-bottom { display:flex; flex-direction:column; align-items:center; gap:clamp(12px,1.6vw,20px); }
+.season-track { position:relative; display:flex; align-items:center; gap:clamp(14px,3vw,42px);
+  padding:10px 20px; border-radius:999px; background:var(--glass); border:1px solid var(--line);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+.season-track .pip { display:flex; align-items:baseline; gap:7px; cursor:pointer; opacity:.45; transition:opacity .25s,transform .25s; }
+.season-track .pip:hover { opacity:.8; }
+.season-track .pip.active { opacity:1; transform:translateY(-1px); }
+.season-track .pip b { font-family:"Songti SC","Noto Serif SC",Georgia,serif; font-size:16px; font-weight:600; }
+.season-track .pip i { font-style:normal; font-size:10px; letter-spacing:.12em; color:var(--muted); }
+.track-marker { position:absolute; bottom:4px; left:0; width:22px; height:2px; border-radius:2px;
+  background:var(--accent); box-shadow:0 0 10px var(--accent); transform:translateX(-50%); transition:left .15s linear; }
+.controls { display:flex; align-items:center; gap:clamp(10px,2vw,24px); flex-wrap:wrap; justify-content:center; }
+.speed { display:flex; align-items:center; gap:10px; font-size:11px; letter-spacing:.1em; color:var(--muted); }
+.speed label { white-space:nowrap; }
+.speed input[type=range] { -webkit-appearance:none; appearance:none; width:clamp(90px,15vw,170px); height:3px;
+  background:rgba(255,255,255,.2); border-radius:3px; outline:none; cursor:pointer; }
+.speed input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:13px; height:13px; border-radius:50%;
+  background:var(--accent); box-shadow:0 0 10px rgba(159,208,122,.6); cursor:pointer; }
+.speed input[type=range]::-moz-range-thumb { width:13px; height:13px; border:none; border-radius:50%; background:var(--accent); cursor:pointer; }
+.speed #speed-val { min-width:74px; white-space:nowrap; color:var(--ink); font-variant-numeric:tabular-nums; }
+.btns { display:flex; gap:8px; }
+.btns button { font:inherit; font-size:11px; letter-spacing:.1em; color:var(--ink); padding:8px 14px;
+  border-radius:999px; cursor:pointer; background:var(--glass); border:1px solid var(--line);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transition:all .2s ease; }
+.btns button:hover { border-color:rgba(159,208,122,.6); background:rgba(28,42,30,.55); }
+.btns button.active { border-color:rgba(159,208,122,.55); color:#cbe8a8; }
+.hint { margin:4px 0 0; font-size:10.5px; letter-spacing:.08em; color:#eef4e8; text-align:center;
+  padding:6px 14px; border-radius:999px; background:rgba(12,18,14,.42);
+  border:1px solid rgba(232,240,224,.10); backdrop-filter:blur(6px);
+  text-shadow:0 1px 6px rgba(0,0,0,.7); }
+#loader { position:fixed; inset:0; z-index:40; display:grid; place-items:center;
+  background:radial-gradient(120% 100% at 50% 40%,#1a2a1e,#0a100c 75%); transition:opacity .6s ease; }
+#loader.done { opacity:0; pointer-events:none; }
+.loader-inner { width:min(320px,76vw); text-align:center; }
+.loader-sprout { width:34px; height:34px; margin:0 auto 26px; border-radius:50% 50% 50% 6px;
+  background:linear-gradient(140deg,#a9d96f,#4c7c3f); transform:rotate(-20deg); animation:sprout 2s ease-in-out infinite;
+  box-shadow:0 0 30px rgba(150,210,100,.35); }
+@keyframes sprout { 0%,100%{transform:rotate(-20deg) scale(1)} 50%{transform:rotate(8deg) scale(1.08)} }
+.loader-title { font-family:"Songti SC","Noto Serif SC",Georgia,serif; font-size:15px; letter-spacing:.22em; color:#dcecd0; }
+.loader-bar { margin:20px auto 12px; width:100%; height:2px; background:rgba(255,255,255,.12); border-radius:2px; overflow:hidden; }
+.loader-bar span { display:block; height:100%; width:0%; background:linear-gradient(90deg,#5f9c4a,#b6e07d); box-shadow:0 0 12px #9fd07a; transition:width .2s ease; }
+.loader-sub { font-size:10px; letter-spacing:.18em; color:rgba(220,236,208,.5); }
+#no-webgl { position:fixed; inset:0; z-index:60; display:grid; place-items:center; background:#0d1410; text-align:center; padding:24px; }
+#no-webgl[hidden] { display:none; }
+#no-webgl h2 { font-size:20px; }
+#no-webgl p { max-width:40ch; line-height:1.7; color:var(--muted); font-size:13px; }
+@media (max-width:620px) {
+  #ui { padding:18px 16px; }
+  .brand h1 { font-size:20px; letter-spacing:.1em; }
+  .brand h1 .en { display:none; }
+  .brand p { font-size:9px; letter-spacing:.1em; }
+  .season-name { font-size:17px; }
+  .season-track { gap:14px; padding:10px 18px; }
+  .season-track .pip { padding:4px 2px; }
+  .season-track .pip b { font-size:18px; }
+  .season-track .pip i { display:none; }
+  .hint { display:block; font-size:10px; opacity:.8; background:rgba(14,21,17,.5); padding:5px 12px; border-radius:999px; }
+  .btns button { padding:10px 13px; font-size:11px; min-height:38px; }
+  .speed label { display:none; }
+  .speed input[type=range] { height:5px; }
+  .speed input[type=range]::-webkit-slider-thumb { width:18px; height:18px; }
+  .season-sub { font-size:11px; color:rgba(240,246,236,.82); }
+  .controls { gap:14px; row-gap:10px; }
+}
+@media (max-width:400px) {
+  .btns { gap:5px; }
+  .btns button { padding:6px 8px; }
+  .speed input[type=range] { width:80px; }
+}
