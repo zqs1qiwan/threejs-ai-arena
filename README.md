@@ -15,14 +15,17 @@
 
 ## 检验地址（Live URLs）
 
+展示站已迁至 GitHub Pages，仓库根目录的 `index.html` 就是画廊首页，三份作品由它引导进入：
+
 | 用途 | 地址 |
 |------|------|
-| 作品画廊首页（模型作品评测 · MODEL GALLERY） | https://fancy.laobaitv.net/ |
-| DeepSeek V4.1 Flash 作品（四季 · SHIKI BONSAI） | https://fancy.laobaitv.net/deepseekv4.1flash/ |
-| Hy4 Flash 作品（禅 · ZEN SHIKI） | https://fancy.laobaitv.net/hy4flash/ |
-| Gemini 4 Hydrogen (Medium) 作品（四季園 · SHIKI-EN） | 待部署（归档于 `products/gemini4hydrogenmedium/dist/`） |
+| 画廊首页（同题·三景 · GALLERY） | https://zqs1qiwan.github.io/threejs-ai-arena/ |
+| 01 · DeepSeek V4.1 Flash（四季 · SHIKI BONSAI） | https://zqs1qiwan.github.io/threejs-ai-arena/products/deepseekv4.1flash/ |
+| 02 · Hy4 Flash（禅 · ZEN SHIKI） | https://zqs1qiwan.github.io/threejs-ai-arena/products/hy4flash/dist/ |
+| 03 · Gemini 4 Hydrogen (Medium)（四季園 · SHIKI-EN） | https://zqs1qiwan.github.io/threejs-ai-arena/products/gemini4hydrogenmedium/dist/ |
 
-> 所有作品均为静态前端构建产物
+> 部署方式：GitHub Pages + GitHub Actions（`.github/workflows/pages.yml`），向 `main` 推送即自动发布。
+> 原 Cloudflare Worker 域名 `fancy.laobaitv.net` 仅作历史入口保留，不再作为展示主站。
 ---
 
 ## 作品目录（Products）
@@ -34,7 +37,11 @@
 | [`products/gemini4hydrogenmedium/`](products/gemini4hydrogenmedium/) | Gemini 4 Hydrogen (Medium) | 四季園 · SHIKI-EN | 源码与最终构建产物（`dist/`） |
 ---
 
-## 说明
+## 维护说明
 
 - 每个作品独立目录，归档最终页面与构建产物，便于比较不同 AI 的最终画面。
-- 本仓库仅归档最终成果，不代表任何资产可脱离线上环境单独运行（构建产物需 Worker 路由配合）。
+- 三个作品的前端构建产物均使用相对路径（`./assets/`），可以直接放在 Pages 子目录下打开，无需路由改写。
+- 源码情况不一致：`gemini4hydrogenmedium` 含完整 Vite + TS 源码（`npm i && npm run build` 可重建 `dist/`），`deepseekv4.1flash` 与 `hy4flash` 只有构建产物。
+- 画廊预览图为线上页面实机截屏（headless Chrome + CDP），存放在 `assets/preview/`，规格 720×450 JPEG；重新截图后用同名文件覆盖即可。
+- 新增作品：产物放入 `products/<slug>/`，在根目录 `index.html` 增加一条作品行，并补一张 `assets/preview/<slug>.jpg`，推送到 `main` 即自动部署。
+- 注意 `.gitignore` 忽略 `*.png`，截图请输出为 JPEG 后再提交。
