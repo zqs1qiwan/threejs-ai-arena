@@ -1,5 +1,5 @@
 {
-  "name": "season-bonsai",
+  "name": "seaglass-alpha",
   "version": "1.0.0",
   "description": "四季盆景 — procedural real-time four-season bonsai garden (Vite + Three.js, pure code, no external assets)",
   "type": "module",

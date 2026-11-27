@@ -15,14 +15,15 @@
 
 ## 检验地址（Live URLs）
 
-展示站已迁至 GitHub Pages，仓库根目录的 `index.html` 就是画廊首页，三份作品由它引导进入：
+展示站已迁至 GitHub Pages，仓库根目录的 `index.html` 就是画廊首页，四份作品由它引导进入：
 
 | 用途 | 地址 |
 |------|------|
-| 画廊首页（同题·三景 · GALLERY） | https://zqs1qiwan.github.io/threejs-ai-arena/ |
+| 画廊首页（同题·四景 · GALLERY） | https://zqs1qiwan.github.io/threejs-ai-arena/ |
 | 01 · DeepSeek V4.1 Flash（四季 · SHIKI BONSAI） | https://zqs1qiwan.github.io/threejs-ai-arena/products/deepseekv4.1flash/ |
 | 02 · Hy4 Flash（禅 · ZEN SHIKI） | https://zqs1qiwan.github.io/threejs-ai-arena/products/hy4flash/dist/ |
 | 03 · Gemini 4 Hydrogen (Medium)（四季園 · SHIKI-EN） | https://zqs1qiwan.github.io/threejs-ai-arena/products/gemini4hydrogenmedium/dist/ |
+| 04 · Seaglass Alpha（匿名）（四季盆景 · Seasonal Bonsai） | https://zqs1qiwan.github.io/threejs-ai-arena/products/seaglass-alpha/dist/ |
 
 > 部署方式：GitHub Pages + GitHub Actions（`.github/workflows/pages.yml`），向 `main` 推送即自动发布。
 > 原 Cloudflare Worker 域名 `fancy.laobaitv.net` 仅作历史入口保留，不再作为展示主站。
@@ -35,13 +36,15 @@
 | [`products/hy4flash/`](products/hy4flash/) | Hy4 Flash | 禅 · ZEN SHIKI | 页面 HTML 与构建产物 |
 | [`products/deepseekv4.1flash/`](products/deepseekv4.1flash/) | DeepSeek V4.1 Flash | 四季 · SHIKI BONSAI | 最终构建产物（线上下载还原）与来源说明 |
 | [`products/gemini4hydrogenmedium/`](products/gemini4hydrogenmedium/) | Gemini 4 Hydrogen (Medium) | 四季園 · SHIKI-EN | 源码与最终构建产物（`dist/`） |
+| [`products/seaglass-alpha/`](products/seaglass-alpha/) | Seaglass Alpha（匿名） | 四季盆景 · Seasonal Bonsai | 源码与最终构建产物（`dist/`） |
 ---
 
 ## 维护说明
 
 - 每个作品独立目录，归档最终页面与构建产物，便于比较不同 AI 的最终画面。
-- 三个作品的前端构建产物均使用相对路径（`./assets/`），可以直接放在 Pages 子目录下打开，无需路由改写。
-- 源码情况不一致：`gemini4hydrogenmedium` 含完整 Vite + TS 源码（`npm i && npm run build` 可重建 `dist/`），`deepseekv4.1flash` 与 `hy4flash` 只有构建产物。
+- **目录命名约定**：`products/<模型 slug>/`，一律按模型命名（如 `seaglass-alpha`），不要用作品题材命名；作品名写在各自的 README 与画廊页里。
+- 四个作品的前端构建产物均使用相对路径（`./assets/`），可以直接放在 Pages 子目录下打开，无需路由改写。
+- 源码情况不一致：`gemini4hydrogenmedium`（Vite + TS）与 `seaglass-alpha`（Vite + Three.js r187）含完整源码，可 `npm i && npm run build` 重建 `dist/`；`deepseekv4.1flash` 与 `hy4flash` 只有构建产物。
 - 画廊预览图为线上页面实机截屏（headless Chrome + CDP），存放在 `assets/preview/`，规格 720×450 JPEG；重新截图后用同名文件覆盖即可。
 - 新增作品：产物放入 `products/<slug>/`，在根目录 `index.html` 增加一条作品行，并补一张 `assets/preview/<slug>.jpg`，推送到 `main` 即自动部署。
 - 注意 `.gitignore` 忽略 `*.png`，截图请输出为 JPEG 后再提交。
