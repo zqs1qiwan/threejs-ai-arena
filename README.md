@@ -20,6 +20,7 @@
 | 作品画廊首页（模型作品评测 · MODEL GALLERY） | https://fancy.laobaitv.net/ |
 | DeepSeek V4.1 Flash 作品（四季 · SHIKI BONSAI） | https://fancy.laobaitv.net/deepseekv4.1flash/ |
 | Hy4 Flash 作品（禅 · ZEN SHIKI） | https://fancy.laobaitv.net/hy4flash/ |
+| Gemini 4 Hydrogen (Medium) 作品（四季園 · SHIKI-EN） | 待部署（归档于 `products/gemini4hydrogenmedium/dist/`） |
 
 > 所有作品均为静态前端构建产物
 ---
@@ -30,6 +31,7 @@
 |------|------|------|----------|
 | [`products/hy4flash/`](products/hy4flash/) | Hy4 Flash | 禅 · ZEN SHIKI | 页面 HTML 与构建产物 |
 | [`products/deepseekv4.1flash/`](products/deepseekv4.1flash/) | DeepSeek V4.1 Flash | 四季 · SHIKI BONSAI | 最终构建产物（线上下载还原）与来源说明 |
+| [`products/gemini4hydrogenmedium/`](products/gemini4hydrogenmedium/) | Gemini 4 Hydrogen (Medium) | 四季園 · SHIKI-EN | 源码与最终构建产物（`dist/`） |
 ---
 
 ## 说明

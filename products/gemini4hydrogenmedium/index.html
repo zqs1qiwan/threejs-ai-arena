@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>四季園 Shiki-en — 3D Living Zen Bonsai</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene-canvas"></canvas>
+
+      <!-- Subtle vignette & grain overlay handled via CSS/post-processing -->
+      <header class="hud-header">
+        <div class="brand">
+          <span class="brand-kanji">四季園</span>
+          <div class="brand-meta">
+            <h1>SHIKI-EN</h1>
+            <p class="brand-sub" id="season-subtitle">春 · 桜吹雪 — Spring Blossom</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="btn-gust" class="icon-pill" title="Trigger Breeze / Gust (G)">
+            <span class="pill-icon">༄</span>
+            <span class="pill-label">微風</span>
+          </button>
+          <button id="btn-hud-toggle" class="icon-pill mobile-only" aria-label="Toggle Controls">
+            <span class="pill-icon">☰</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Interactive Hint Toast -->
+      <div class="hint-toast" id="hint-toast">
+        点击树冠吹起落英 · 点击石灯笼点灯 · 点击水面泛起涟漪 · 拖拽旋转视角
+      </div>
+
+      <!-- Bottom / Side Control Dock -->
+      <aside class="hud-dock" id="hud-dock">
+        <!-- Season Selector & Timeline -->
+        <section class="dock-section">
+          <div class="season-pills" role="tablist" aria-label="Season Selector">
+            <button class="season-btn active" data-season="0" role="tab">
+              <span class="season-dot spring"></span>
+              <span>春 Spring</span>
+            </button>
+            <button class="season-btn" data-season="1" role="tab">
+              <span class="season-dot summer"></span>
+              <span>夏 Summer</span>
+            </button>
+            <button class="season-btn" data-season="2" role="tab">
+              <span class="season-dot autumn"></span>
+              <span>秋 Autumn</span>
+            </button>
+            <button class="season-btn" data-season="3" role="tab">
+              <span class="season-dot winter"></span>
+              <span>冬 Winter</span>
+            </button>
+          </div>
+
+          <div class="timeline-row">
+            <button id="btn-play" class="play-btn" title="Auto Cycle Seasons (Space)" aria-label="Play/Pause">
+              <span id="play-icon">❚❚</span>
+            </button>
+            <div class="slider-wrap">
+              <input id="season-slider" type="range" min="0" max="4" step="0.002" value="0.25" aria-label="Season Timeline" />
+              <div class="season-ticks">
+                <span>春</span><span>夏</span><span>秋</span><span>冬</span><span>春</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Camera Presets & Atmosphere -->
+        <section class="dock-section dock-row">
+          <div class="control-group">
+            <span class="group-label">视角 Camera</span>
+            <div class="chip-row" id="camera-presets">
+              <button class="chip active" data-cam="overview">全景</button>
+              <button class="chip" data-cam="canopy">枝叶</button>
+              <button class="chip" data-cam="lantern">石灯</button>
+              <button class="chip" data-cam="roots">根盘</button>
+              <button class="chip" data-cam="zen">俯瞰</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="group-label">光影 Mood</span>
+            <div class="chip-row" id="mood-presets">
+              <button class="chip active" data-mood="day">清昼</button>
+              <button class="chip" data-mood="golden">暮金</button>
+              <button class="chip" data-mood="night">月夜</button>
+            </div>
+          </div>
+
+          <div class="control-group wind-group">
+            <span class="group-label">风力 Wind <em id="wind-val">0.45</em></span>
+            <input id="wind-slider" type="range" min="0" max="1" step="0.01" value="0.45" aria-label="Wind Strength" />
+          </div>
+        </section>
+      </aside>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
